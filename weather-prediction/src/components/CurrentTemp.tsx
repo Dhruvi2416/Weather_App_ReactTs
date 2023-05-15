@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { debounce } from "lodash";
-import winterPic from "../winter.gif";
+
 const CurrentTemp = () => {
   const [data, setData] = useState<any>(null);
 
@@ -24,7 +24,7 @@ const CurrentTemp = () => {
   }, [city]);
 
   return (
-    <div className="weather" style={{ backgroundImage: `url(${winterPic})` }}>
+    <div className="weather" >
       {data != null ? (
         <>
           {data.main != null && data.main.temp != null ? (
