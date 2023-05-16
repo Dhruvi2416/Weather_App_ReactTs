@@ -3,14 +3,15 @@ import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
 
 const CurrentTemp = () => {
+  const API_KEY = process.env.REACT_APP_API_KEY
   const navigate = useNavigate();
   const [data, setData] = useState<any>(null);
-
+  
   const [city, setCity] = useState<string>("Nadiad");
 
   const fetchData = async () => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a204b978321aa45262890e488803fc24&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     
     );
     let datas = await response.json();
