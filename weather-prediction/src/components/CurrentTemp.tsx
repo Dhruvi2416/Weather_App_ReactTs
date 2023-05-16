@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { debounce } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const CurrentTemp = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState<any>(null);
 
   const [city, setCity] = useState<string>("Nadiad");
@@ -12,7 +14,7 @@ const CurrentTemp = () => {
     );
     let datas = await response.json();
 
-    setData(() => datas);
+    setData(datas);
   };
   const debouncedFetchData = debounce(fetchData, 300); // Create debounced function once
 
@@ -24,18 +26,7 @@ const CurrentTemp = () => {
   }, [city]);
 
   return (
-    <div className="weather" >
-      {data != null ? (
-        <>
-          {data.main != null && data.main.temp != null ? (
-            <p>{data.main.temp}</p>
-          ) : (
-            <p>No data found</p>
-          )}
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="weather">
       <form>
         <input
           type="text"
@@ -43,6 +34,49 @@ const CurrentTemp = () => {
           onChange={(e) => setCity(e.target.value)}
         ></input>
       </form>
+      <span>
+        <h5>
+          Searched for -{" "}
+          {city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()}
+        </h5>
+      </span>
+      {data != null ? (
+        <>
+          {data.main != null ? (
+            <>
+              <h1>
+                {city.charAt(0).toUpperCase() +
+                  city.slice(1).toLowerCase() +
+                  " (" +
+                  data.sys.country +
+                  ")"}
+              </h1>
+              <h3>Temperature : {data.main.temp} °C</h3>
+              <h3>Humidity: {data.main.humidity}</h3>
+              <h3>Status: {data.weather[0].description}</h3>
+              <button
+                onClick={() =>
+                  navigate("/hourly", {
+                    state: { city: city, id: 1, name: "kasu" },
+                  })
+                }
+              >
+                Get Hourly Data
+              </button>
+              <button onClick={() => navigate("/monthly")}>
+                Get Monthly Data
+              </button>
+              <button onClick={() => navigate("/yearly")}>
+                Get Yearly Data
+              </button>
+            </>
+          ) : (
+            <h1>No data found</h1>
+          )}
+        </>
+      ) : (
+        <b>Loading...</b>
+      )}
     </div>
   );
 };
