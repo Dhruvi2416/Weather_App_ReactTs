@@ -1,19 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { format } from "date-fns";
 const HourlyData = () => {
   const location = useLocation();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(
-  //       `https://api.openweathermap.org/data/2.5/weather?q=${location.state.city}&appid=cd2783566a4f7cfc5814d5f6dc152b6c&units=metric`
-  //     );
-  //     let datas = await response.json();
-  //     console.log(datas);
-  //   };
-  //   fetchData();
-  // }, []);
+  const city = location.state.city;
+  const [data, setData] = useState<any>(null);
+  const date = new Date();
+  const formattedDate = format(date, "yyyy-MM-dd");
 
-  return <div>HourlyData {location.state.name}</div>;
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=a204b978321aa45262890e488803fc24&units=metric`
+      );
+      let datas = await response.json();
+      console.log(datas);
+      setData(datas);
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      HourlyData
+      {data != null ? (
+        <>
+          {data.list != null ? (
+            <>
+              <h1>
+                {city.charAt(0).toUpperCase() +
+                  city.slice(1).toLowerCase() +
+                  " (" +
+                  data.city.country +
+                  ")"}
+              </h1>
+              
+             
+              <div className="card-collection">
+              {data.list.map((val: any,index:number) =>
+                val.dt_txt.slice(0, 10) == formattedDate ? <div key={index}><div className="card m-2 d-flex" >
+                <img src="..." className="card-img-top" alt="..."/>
+                <div className="card-body">
+                  <h5 className="card-title"></h5><hr/>
+                  <h6 className="card-text"><p>Temperature : {val.main.temp} °C</p><p>Humidity: {val.main.humidity}</p><p>Status: {val.weather[0].description}</p></h6>
+                  
+                </div>
+              </div></div> : null
+              )}</div>
+            </>
+          ) : (
+            <h1>No data found</h1>
+          )}
+        </>
+      ) : (
+        <b>Loading...</b>
+      )}
+    </div>
+  );
 };
 
 export default HourlyData;

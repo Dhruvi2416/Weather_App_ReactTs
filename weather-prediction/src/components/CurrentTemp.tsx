@@ -10,7 +10,8 @@ const CurrentTemp = () => {
 
   const fetchData = async () => {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cd2783566a4f7cfc5814d5f6dc152b6c&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a204b978321aa45262890e488803fc24&units=metric`
+    
     );
     let datas = await response.json();
 
@@ -57,7 +58,7 @@ const CurrentTemp = () => {
               <button
                 onClick={() =>
                   navigate("/hourly", {
-                    state: { city: city, id: 1, name: "kasu" },
+                    state: { city: city },
                   })
                 }
               >
