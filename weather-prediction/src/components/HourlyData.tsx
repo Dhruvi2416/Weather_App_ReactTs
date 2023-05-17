@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import { format } from "date-fns";
-type hourlyDataProp = {
+import { HourlyDataAPI, List1 } from "../models/weather";
+import { List } from "lodash";
+type HourlyDataProp = {
   city: string;
 };
-const HourlyData: React.FC<hourlyDataProp> = ({ city }) => {
+const HourlyData: React.FC<HourlyDataProp> = ({ city }) => {
   const API_KEY = process.env.REACT_APP_API_KEY;
 
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<HourlyDataAPI | null>(null);
   const date = new Date();
   const formattedDate = format(date, "dd");
 
@@ -41,7 +43,7 @@ const HourlyData: React.FC<hourlyDataProp> = ({ city }) => {
               <>
                 {data.list != null ? (
                   <>
-                    {data.list.map((val: any, index: number) =>
+                    {data.list.map((val: List1, index: number) =>
                       parseInt(val.dt_txt.slice(8, 10)) -
                         parseInt(formattedDate) <=
                       2 ? (
