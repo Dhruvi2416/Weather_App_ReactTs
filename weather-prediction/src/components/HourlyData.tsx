@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+
 import { format } from "date-fns";
-const HourlyData = () => {
+type hourlyDataProp = {
+  city: string;
+};
+const HourlyData: React.FC<hourlyDataProp> = ({ city }) => {
   const API_KEY = process.env.REACT_APP_API_KEY;
-  const location = useLocation();
-  const city = location.state.city;
+
   const [data, setData] = useState<any>(null);
   const date = new Date();
-  const formattedDate = format(date, "yyyy-MM-dd");
+  const formattedDate = format(date, "dd");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,57 +17,75 @@ const HourlyData = () => {
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
       );
       let datas = await response.json();
-
+      console.log(datas);
       setData(datas);
     };
     fetchData();
   }, []);
-
+  console.log(data);
   return (
-    <div>
-      {data != null ? (
-        <>
-          {data.list != null ? (
-            <>
-              <h1>
-                {city.charAt(0).toUpperCase() +
-                  city.slice(1).toLowerCase() +
-                  " (" +
-                  data.city.country +
-                  ")"}
-              </h1>
-
-              <div className="card-collection">
-                {data.list.map((val: any, index: number) =>
-                  val.dt_txt.slice(0, 10) == formattedDate ? (
-                    <div key={index}>
-                      <div className="card m-2 d-flex">
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                          <h5 className="card-title"></h5>
-                          <hr />
-                          <h6 className="card-text">
-                            <p>Temperature : {val.main.temp} °C</p>
-                            <p>Humidity: {val.main.humidity}</p>
-                            <p>Status: {val.weather[0].description}</p>
-                          </h6>
-                          <p>
-                            Hourly Data of <b>{val.dt_txt}</b>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ) : null
+    <div className="data-collection">
+      <h3>Forecasted 3 hours Data</h3>
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Tempearature</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Status</th>
+              <th scope="col">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data != null ? (
+              <>
+                {data.list != null ? (
+                  <>
+                    {data.list.map((val: any, index: number) =>
+                      parseInt(val.dt_txt.slice(8, 10)) -
+                        parseInt(formattedDate) <=
+                      2 ? (
+                        <tr key={index}>
+                          {/* <td>
+                          {" "}
+                          <img
+                            src={`https://source.unsplash.com/random/900x700/?${val.weather[0].description}`}
+                            className="card-img-top"
+                            alt="..."
+                          />
+                        </td> */}
+                          <td>
+                            <p>{val.main.temp} °C</p>
+                          </td>
+                          <td>
+                            <p>{val.main.humidity}</p>
+                          </td>
+                          <td>
+                            <p>{val.weather[0].description}</p>
+                          </td>
+                          <td>
+                            {val.dt_txt.slice(8, 10) +
+                              "-" +
+                              val.dt_txt.slice(5, 7) +
+                              "-" +
+                              val.dt_txt.slice(0, 4) +
+                              " " +
+                              val.dt_txt.slice(10, 19)}
+                          </td>{" "}
+                        </tr>
+                      ) : null
+                    )}
+                  </>
+                ) : (
+                  <h1>No data found</h1>
                 )}
-              </div>
-            </>
-          ) : (
-            <h1>No data found</h1>
-          )}
-        </>
-      ) : (
-        <b>Loading...</b>
-      )}
+              </>
+            ) : (
+              <h4>Loading...</h4>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import MonthlyData from "./components/MonthlyData";
 import YearlyData from "./components/YearlyData";
 const App = () => {
   return (
-    <div>
+    <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div className="container-md">
           <a className="navbar-brand d-flex justify-content-center " href="#">
@@ -14,17 +14,15 @@ const App = () => {
           </a>
         </div>
       </nav>
-      <div className="container">
+      <div className="container p-3">
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/hourly" element={<HourlyData />} />
-            <Route path="/monthly" element={<MonthlyData />} />
-            <Route path="/yearly" element={<YearlyData />} />
+           
           </Routes>
         </Router>
       </div>
-    </div>
+    </>
   );
 };
 

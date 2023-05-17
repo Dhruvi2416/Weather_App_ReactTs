@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState} from "react";
 import { debounce } from "lodash";
 import { useNavigate } from "react-router-dom";
+import HourlyData from "./HourlyData";
 
 const CurrentTemp = () => {
-  const API_KEY = process.env.REACT_APP_API_KEY
-  const navigate = useNavigate();
+  const API_KEY = process.env.REACT_APP_API_KEY;
+ 
   const [data, setData] = useState<any>(null);
-  
-  const [city, setCity] = useState<string>("Nadiad");
+
+  const [city, setCity] = useState<string>("");
 
   const fetchData = async () => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-    
     );
     let datas = await response.json();
 
@@ -28,8 +28,8 @@ const CurrentTemp = () => {
   }, [city]);
 
   return (
-    <div className="weather">
-      <form>
+    <div className="weather p-5 d-flex flex-column  justify-content-center align-items-center">
+      <form className="form-control mb-3">
         <input
           type="text"
           placeholder="Search any city"
@@ -37,10 +37,10 @@ const CurrentTemp = () => {
         ></input>
       </form>
       <span>
-        <h5>
+        {city!=="" &&<h5>
           Searched for -{" "}
           {city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()}
-        </h5>
+        </h5>}
       </span>
       {data != null ? (
         <>
@@ -52,11 +52,12 @@ const CurrentTemp = () => {
                   " (" +
                   data.sys.country +
                   ")"}
-              </h1>
+              </h1><div className="p-2">
               <h3>Temperature : {data.main.temp} °C</h3>
               <h3>Humidity: {data.main.humidity}</h3>
-              <h3>Status: {data.weather[0].description}</h3>
-              <button
+              <h3>Status: {data.weather[0].description}</h3></div>
+              <HourlyData city={city}/>
+              {/* <button className="btn btn-primary"
                 onClick={() =>
                   navigate("/hourly", {
                     state: { city: city },
@@ -64,13 +65,13 @@ const CurrentTemp = () => {
                 }
               >
                 Get Hourly Data
-              </button>
-              <button onClick={() => navigate("/monthly")}>
+              </button> */}
+              {/* <button onClick={() => navigate("/monthly")}>
                 Get Monthly Data
               </button>
               <button onClick={() => navigate("/yearly")}>
                 Get Yearly Data
-              </button>
+              </button> */}
             </>
           ) : (
             <h1>No data found</h1>

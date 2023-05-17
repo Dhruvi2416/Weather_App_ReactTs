@@ -1,5 +1,54 @@
-.card-collection{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
+body {
+  background-color: rgb(228, 188, 124);
+}
+
+.container {
+  max-width: 40%;
+}
+
+input {
+  width: 100%;
+  border: none;
+}
+
+table tr {
+  border: none;
+}
+
+.data-collection {
+  overflow-x: auto;
+}
+
+.table-wrapper {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .table td,
+  .table th {
+    white-space: nowrap;
+  }
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 721px) {
+  .container {
+    max-width: 100%;
+  }
 
 }
+
