@@ -28,13 +28,22 @@ const CurrentTemp = () => {
     };
   }, [city]);
 
+  function handleKeyDown(e:React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    
+    }
+  }
+
   return (
     <div className="weather  d-flex flex-column  justify-content-center align-items-center">
-      <form className="form-control mb-3">
+      <form className="form-control mb-5">
         <input
           type="text"
+          
           placeholder="Search any city"
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e)=>handleKeyDown(e)}
         ></input>
       </form>
       <span>
@@ -56,15 +65,18 @@ const CurrentTemp = () => {
                   data.sys.country +
                   ")"}
               </h1>
-              <div className="p-2">
+              <div className="p-2 pb-5 d-flex flex-column align-items-center">
                 <h3>Temperature : {data.main.temp} °C</h3>
                 <h3>Humidity: {data.main.humidity}</h3>
                 <h3>Status: {data.weather[0].description}</h3>
               </div>
+              <div className="hourly pt-5">
               <HourlyData city={city} />
+              </div>
             </>
-          ) : (
+          ) : (<>
             <h1>No data found</h1>
+            <p>(Please type correct place)</p></>
           )}
         </>
       ) : (
@@ -75,3 +87,6 @@ const CurrentTemp = () => {
 };
 
 export default CurrentTemp;
+
+
+
