@@ -9,9 +9,9 @@ const App = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div className="container-md">
-          <a className="navbar-brand d-flex justify-content-center " href="#">
+        <div className="navbar-brand mx-auto text-center">
             Weather Prediction
-          </a>
+          </div>
         </div>
       </nav>
       <div className="container p-3">

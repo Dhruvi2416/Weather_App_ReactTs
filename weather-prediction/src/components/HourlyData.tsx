@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { format } from "date-fns";
 import { HourlyDataAPI, List1 } from "../models/weather";
-import { List } from "lodash";
+
 type HourlyDataProp = {
   city: string;
 };
@@ -19,14 +19,14 @@ const HourlyData: React.FC<HourlyDataProp> = ({ city }) => {
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
       );
       let datas = await response.json();
-      console.log(datas);
+   
       setData(datas);
     };
     fetchData();
   }, []);
-  console.log(data);
+ 
   return (
-    <div className="data-collection">
+    <div className="data-collection d-flex flex-column align-items-center">
       <h3>Forecasted 3 hours Data</h3>
       <div className="table-wrapper">
         <table className="table">
@@ -48,14 +48,7 @@ const HourlyData: React.FC<HourlyDataProp> = ({ city }) => {
                         parseInt(formattedDate) <=
                       2 ? (
                         <tr key={index}>
-                          {/* <td>
-                          {" "}
-                          <img
-                            src={`https://source.unsplash.com/random/900x700/?${val.weather[0].description}`}
-                            className="card-img-top"
-                            alt="..."
-                          />
-                        </td> */}
+                        
                           <td>
                             <p>{val.main.temp} °C</p>
                           </td>

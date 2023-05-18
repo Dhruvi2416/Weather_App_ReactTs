@@ -1,10 +1,16 @@
-/* body {
- 
-} */
+body {
+  background-image: url("./components/img.jpg");
+}
 
 .container {
-  background-color: rgb(228, 188, 124);
+  background-color: rgba(0, 0, 0, 0.7);
   max-width: 40%;
+  font-size: large;
+  color: white;
+}
+
+.hourly{
+  border-top: 5px solid white;
 }
 
 input {
@@ -14,38 +20,31 @@ input {
 
 table tr {
   border: none;
+  text-decoration:double;
 }
 
-.data-collection {
-  overflow-x: auto;
-}
+table {
+text-align: center;
 
-.table-wrapper {
-  width: 100%;
 }
 
 .table {
   width: 100%;
- table-layout: fixed;
- word-wrap:break-word;
+  table-layout: fixed;
+  word-wrap: break-word;
+  color: white;
 }
 
-/* @media (max-width: 768px) {
-  .table {
-    display: block;
-    overflow-x: auto;
+@media only screen and (max-width: 1283px) {
+  .container {
+    max-width: 55%;
+    font-size: medium;
   }
+}
 
-  .table td,
-  .table th {
-    white-space: nowrap;
-    word-wrap: break-word;
-  }
-} */
-
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .container {
     max-width: 100%;
-    font-size: 0.7em;
+    font-size: 0.7rem;
   }
 }
