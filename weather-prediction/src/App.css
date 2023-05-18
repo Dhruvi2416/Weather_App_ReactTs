@@ -1,0 +1,50 @@
+body {
+  background-image: url("./components/img.jpg");
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.7);
+  max-width: 40%;
+  font-size: large;
+  color: white;
+}
+
+.hourly{
+  border-top: 5px solid white;
+}
+
+input {
+  width: 100%;
+  border: none;
+}
+
+table tr {
+  border: none;
+  text-decoration:double;
+}
+
+table {
+text-align: center;
+
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+  color: white;
+}
+
+@media only screen and (max-width: 1283px) {
+  .container {
+    max-width: 55%;
+    font-size: medium;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    font-size: 0.7rem;
+  }
+}
