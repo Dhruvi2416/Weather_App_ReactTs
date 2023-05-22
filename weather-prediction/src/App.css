@@ -1,5 +1,6 @@
 body {
   background-image: url("./components/img.jpg");
+  overflow: hidden;
 }
 
 .container {
@@ -7,10 +8,7 @@ body {
   max-width: 40%;
   font-size: large;
   color: white;
-}
-
-.hourly{
-  border-top: 5px solid white;
+  max-height: 87vh;
 }
 
 input {
@@ -18,21 +16,30 @@ input {
   border: none;
 }
 
-table tr {
-  border: none;
-  text-decoration:double;
+.hourly {
+  border-top: 5px solid white;
 }
 
-table {
-text-align: center;
-
+.table-container {
+  max-height: 390px; /* Adjust the max height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
-
+.table-container::-webkit-scrollbar {
+  display: none;
+}
 .table {
+  text-align: center;
   width: 100%;
   table-layout: fixed;
   word-wrap: break-word;
   color: white;
+}
+
+.headpart {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 @media only screen and (max-width: 1283px) {

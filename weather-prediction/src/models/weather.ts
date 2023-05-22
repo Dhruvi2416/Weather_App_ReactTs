@@ -1,17 +1,10 @@
+// typescript interfaces declaring types of states and data
+// interface for api fetching and will contain below data objects
 export interface WeatherAPI {
   weather: Weather[];
-
   main: Main;
-
-  dt: number;
   sys: Sys;
-
-  id: number;
   name: string;
-}
-
-export interface Sys {
-  country: string;
 }
 
 export interface Weather {
@@ -19,12 +12,15 @@ export interface Weather {
   main: string;
   description: string;
 }
-
 export interface Main {
   temp: number;
-
   humidity: number;
 }
+export interface Sys {
+  country: string;
+}
+
+// Hourly Data TS
 
 export interface HourlyDataAPI {
   list: List1[];
@@ -32,21 +28,14 @@ export interface HourlyDataAPI {
 }
 
 export interface List1 {
-  dt: number;
   main: Main1;
   weather: Weather[];
-
   dt_txt: string;
 }
 
 export interface Main1 {
   temp: number;
-
   humidity: number;
-}
-
-export interface Weather {
-  description: string;
 }
 
 export interface City {
